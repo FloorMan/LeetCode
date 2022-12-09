@@ -1,0 +1,283 @@
+    /**
+     * Definition for singly-linked list.
+     * struct ListNode {
+     *     int val;
+     *     struct ListNode *next;
+     * };
+     */
+    #include <stdlib.h>
+    #include <stdio.h>
+    #include <math.h>
+
+
+
+    //create a linked list ListNode
+    struct ListNode{
+        int val;
+        struct ListNode *next;
+    };
+
+    struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2);
+    struct ListNode* addTwoNumbers1(struct ListNode* l1, struct ListNode* l2);
+
+    int main(){
+        //I love you github Copilot <3
+
+        /*
+        //create a linked list with the val of 2, 4 and 3
+        struct ListNode *l1 = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l1->val = 2;
+        l1->next = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l1->next->val = 4;
+        l1->next->next = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l1->next->next->val = 3;
+        l1->next->next->next = NULL;
+        
+
+        //print out the numbers in the linked list
+        printf("numbers in l1: ");
+        printf("%d", l1->val);
+        printf("%d", l1->next->val);
+        printf("%d\n", l1->next->next->val);
+
+
+
+        //create a linked list with the val of 5, 6 and 4
+        struct ListNode *l2 = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l2->val = 5;
+        l2->next = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l2->next->val = 6;
+        l2->next->next = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l2->next->next->val = 4;
+        l2->next->next->next = NULL;
+
+        //print out the numbers in the linked list
+        printf("numbers in l2: ");
+        printf("%d", l2->val);
+        printf("%d", l2->next->val);
+        printf("%d\n", l2->next->next->val);
+        */
+
+
+
+
+
+        
+        //create a linked list with the val of 9
+        struct ListNode *l1 = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l1->val = 9;
+        l1->next = NULL;
+
+        //print out the numbers in the linked list
+        printf("numbers in l1: ");
+        printf("%d", l1->val);
+        printf("\n");
+
+        //create a linked list with the val of 1, 9, 9, 9, 9, 9, 9, 9, 9, 9
+        struct ListNode *l2 = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l2->val = 1;
+        l2->next = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l2->next->val = 9;
+        l2->next->next = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l2->next->next->val = 9;
+        l2->next->next->next = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l2->next->next->next->val = 9;
+        l2->next->next->next->next = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l2->next->next->next->next->val = 9;
+        l2->next->next->next->next->next = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l2->next->next->next->next->next->val = 9;
+        l2->next->next->next->next->next->next = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l2->next->next->next->next->next->next->val = 9;
+        l2->next->next->next->next->next->next->next = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l2->next->next->next->next->next->next->next->val = 9;
+        l2->next->next->next->next->next->next->next->next = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l2->next->next->next->next->next->next->next->next->val = 9;
+        l2->next->next->next->next->next->next->next->next->next = (struct ListNode *) malloc(sizeof(struct ListNode));
+        l2->next->next->next->next->next->next->next->next->next->val = 9;
+        l2->next->next->next->next->next->next->next->next->next->next = NULL;
+
+        //print out the numbers in the linked list
+        printf("numbers in l2: ");
+        printf("%d", l2->val);
+        printf("%d", l2->next->val);
+        printf("%d", l2->next->next->val);
+        printf("%d", l2->next->next->next->val);
+        printf("%d", l2->next->next->next->next->val);
+        printf("%d", l2->next->next->next->next->next->val);
+        printf("%d", l2->next->next->next->next->next->next->val);
+        printf("%d", l2->next->next->next->next->next->next->next->val);
+        printf("%d", l2->next->next->next->next->next->next->next->next->val);
+        printf("%d", l2->next->next->next->next->next->next->next->next->next->val);
+        printf("\n");
+
+        
+
+
+
+
+
+
+        struct ListNode *newList = addTwoNumbers(l1,l2);
+        printf("%d", newList->val);
+        printf("%d", newList->next->val);
+        printf("%d", newList->next->next->val);
+
+        
+        printf("%d", newList->next->next->next->val);
+        printf("%d", newList->next->next->next->next->val);
+        printf("%d", newList->next->next->next->next->next->val);
+        printf("%d", newList->next->next->next->next->next->next->val);
+        printf("%d", newList->next->next->next->next->next->next->next->val);
+        printf("%d", newList->next->next->next->next->next->next->next->next->val);
+        printf("%d", newList->next->next->next->next->next->next->next->next->next->val);
+        printf("%d", newList->next->next->next->next->next->next->next->next->next->next->val);
+        printf("%d", newList->next->next->next->next->next->next->next->next->next->next->next->val);
+        
+
+        return 0;
+    }
+
+
+
+
+    struct ListNode* addTwoNumbers1(struct ListNode* l1, struct ListNode* l2){//doesn't work since it can't handle numbers larger than 2^32-1
+
+        long long int a=0,b=0, total;//stores the total for both l1 and l2
+
+        int i;
+        for(i=0; l1->next != NULL; i++){ //creates the number for l1
+            a += (l1->val) * (long long int) pow(10,i); //puts the digits into a
+            l1 = l1->next; //traverses the list
+        }
+        a += l1->val * pow(10,i); //puts the last digit into a
+
+
+
+
+        for(i=0; l2->next != NULL; i++){ //creates the number for l2
+            b += l2->val * (long long int) pow(10,i); //puts the digits into b
+            l2 = l2->next;
+        }
+        b += l2->val * ((long long int) pow(10,i)); //puts the last digit into b
+
+
+
+        total = a + b;
+
+
+
+        struct ListNode *newList = (struct ListNode *) malloc(sizeof(struct ListNode));
+        newList->val = total%10;
+        newList->next = NULL;
+
+
+
+        total/=10;
+
+
+
+        while(total != 0){
+            struct ListNode *temp = (struct ListNode *) malloc(sizeof(struct ListNode));
+            struct ListNode *tem = newList;
+            temp->val = total%10;
+            temp->next = NULL;
+            while(tem->next != NULL){
+                tem = tem->next;
+            }
+            tem->next = temp;
+
+            total/=10;
+        }
+
+
+
+        return newList;
+    }
+
+
+
+struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2){//works by adding the numbers together and creating a new list
+    
+        struct ListNode *newList = (struct ListNode *) malloc(sizeof(struct ListNode));
+        struct ListNode *hold = newList;
+
+        int carry = 0, sum;
+
+        while(l1 != NULL && l2 != NULL){ //as long as both lists have values, it will add them together to a new node and link
+            struct ListNode *temp = (struct ListNode *) malloc(sizeof(struct ListNode));
+            hold = newList;
+
+            sum = l1->val + l2->val + carry;
+            temp->val = sum%10;
+
+            carry = 0;
+            if(sum >= 10) //checks for carrying the 1
+                carry = 1;
+
+            while(hold->next != NULL) //moves down the list to connect the new node to the list
+                hold = hold->next; 
+            hold->next = temp;
+
+
+            //moves down the list
+            l1 = l1->next;
+            l2 = l2->next;
+        }
+        
+        while(l1 != NULL){ //adds the rest of the list if list one still goes on
+            struct ListNode *temp = (struct ListNode *) malloc(sizeof(struct ListNode));
+            hold = newList;
+
+            sum = l1->val + carry;
+            temp->val = sum%10;
+
+            carry = 0;
+            if(sum >= 10) //checks for carrying the 1
+                carry = 1;
+
+            while(hold->next != NULL) //moves down the list to connect the new node to the list
+                hold = hold->next; 
+            hold->next = temp;
+
+
+            //moves down the list
+            l1 = l1->next;
+        }
+
+         while(l2 != NULL){ //adds the rest of the list if list two still goes on
+            struct ListNode *temp = (struct ListNode *) malloc(sizeof(struct ListNode));
+            hold = newList;
+
+            sum = l2->val + carry;
+            temp->val = sum%10;
+
+            carry = 0;
+            if(sum >= 10) //checks for carrying the 1
+                carry = 1;
+
+            while(hold->next != NULL) //moves down the list to connect the new node to the list
+                hold = hold->next; 
+            hold->next = temp;
+
+
+            //moves down the list
+            l2 = l2->next;
+        }
+
+        if(carry == 1){ //if there needs to be a 1 carried it will add one final node
+            struct ListNode *temp = (struct ListNode *) malloc(sizeof(struct ListNode));
+            hold = newList;
+
+            temp->val = 1;
+
+            while(hold->next != NULL) //moves down the list to connect the new node to the list
+                hold = hold->next; 
+            hold->next = temp;
+        }
+
+
+
+        return newList;
+}
+
+
