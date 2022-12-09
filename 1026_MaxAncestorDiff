@@ -1,0 +1,190 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+#include <math.h>
+
+
+
+//Definition for a binary tree node.
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+};
+
+int maxAncestorDiff(struct TreeNode* root);
+void checkNode(struct TreeNode* root, int small, int biggest, int *max);
+void checkNode1(struct TreeNode* root, int small, int biggest, int *max);
+
+int main(){
+
+
+    
+    //create a tree of [1,null,2,null,0,3]
+    struct TreeNode *root2 = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root2->val = 1;
+    root2->left = NULL;
+    root2->right = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root2->right->val = 2;
+    root2->right->left = NULL;
+    root2->right->right = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root2->right->right->val = 0;
+    root2->right->right->left = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root2->right->right->left->val = 3;
+    root2->right->right->left->left = NULL;
+    root2->right->right->left->right = NULL;
+    root2->right->right->right = NULL;
+    root2->right->left = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root2->right->left->val = 11;
+    root2->left = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root2->left->val = 4;
+    root2->left->right = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root2->left->right->val = 5;
+    root2->left->left = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root2->left->left->val = 6;
+
+
+
+
+    
+    
+    //create a tree of [8,3,10,1,6,null,14,null,null,4,7,13]
+    struct TreeNode *root = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root->val = 8;
+    root->left = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root->left->val = 3;
+    root->left->left = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root->left->left->val = 1;
+    root->left->left->left = NULL;
+    root->left->left->right = NULL;
+    root->left->right = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root->left->right->val = 6;
+    root->left->right->left = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root->left->right->left->val = 4;
+    root->left->right->left->left = NULL;
+    root->left->right->left->right = NULL;
+    root->left->right->right = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root->left->right->right->val = 7;
+    root->left->right->right->left = NULL;
+    root->left->right->right->right = NULL;
+    root->right = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root->right->val = 10;
+    root->right->left = NULL;
+    root->right->right = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root->right->right->val = 14;
+    root->right->right->left = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    root->right->right->left->val = 13;
+    root->right->right->left->left = NULL;
+    root->right->right->left->right = NULL;
+    root->right->right->right = NULL;
+
+
+    
+
+
+    printf("Max Difference should be 3\tMax difference in root2: %d\n", maxAncestorDiff(root2));
+
+    printf("Max Difference should be 7\tMax difference in root: %d\n", maxAncestorDiff(root));
+
+    
+    //free the tree of root 2
+
+    free(root2->right->right->left);
+    free(root2->right->right);
+    free(root2->right->left);
+    free(root2->right);
+    free(root2->left->right);
+    free(root2->left->left);
+    free(root2->left);
+    free(root2);
+    
+
+   //free the tree of root
+    free(root->right->right->left);
+    free(root->right->right);
+    free(root->right);
+    free(root->left->right->left);
+    free(root->left->right->right);
+    free(root->left->right);
+    free(root->left->left);
+    free(root->left);
+    free(root);
+
+
+
+
+    return 0;
+}
+
+                //this code is not working because it is stupid and I tried to make a depth first search without even knowing what depth first is
+                //to be fair, it did get pretty fair with most test cases
+                //nevermind it worked I was returning an int for soem reason and not just idk
+void checkNode(struct TreeNode* root, int small,int biggest,int *max){ //returns the smallest value in the node path
+    if(root == NULL)
+        return;
+
+    if(root->val > biggest)
+        biggest = root->val; //checks if the child val is bigger than the parent val
+
+
+    if(root->val < small)
+        small = root->val; //checks if the child val is smaller than the parent val
+
+    if(abs(biggest - small) > *max)
+        *max = abs(biggest - small); //changes the max difference
+
+
+
+
+
+    checkNode(root->left, small, biggest, max); //recursive call stores smallest value in small
+                        //root, 10,10, &max
+            //small = 13
+
+    
+    checkNode(root->right, small, biggest, max); //recursive call stores smallest value on right in small
+}
+
+
+
+
+int maxAncestorDiff(struct TreeNode* root){
+
+    int dif = 0;
+    
+    checkNode(root, root->val, root->val, &dif);
+
+    return dif;
+}
+
+
+//my other code works faster so you can suck it anonymous LeetCode Solution poster 
+/*
+....................../´¯/) 
+....................,/¯../ 
+.................../..../ 
+............./´¯/'...'/´¯¯`·¸ 
+........../'/.../..../......./¨¯\ 
+........('(...´...´.... ¯~/'...') 
+.........\.................'...../ 
+..........''...\.......... _.·´ 
+............\..............( 
+..............\.............\...
+*/
+void checkNode1(struct TreeNode* root, int mino, int maxo, int *dif){
+    if(root == NULL)
+        return;
+
+    mino = fmin(mino, root->val);
+    maxo = fmax(maxo, root->val);
+
+    *dif = fmax(*dif, maxo - mino);
+
+    checkNode1(root->left, mino, maxo, dif);
+    checkNode1(root->right, mino, maxo, dif);
+}
+
+
+
+
