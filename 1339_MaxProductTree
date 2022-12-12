@@ -1,0 +1,24 @@
+int checkNode(struct TreeNode* root, long int *sub, long int *result, int *max){ //takes a node and checks to see if the left or right side sums are bigger
+    if(root == NULL)
+        return 0;
+
+    *sub = (checkNode(root->left, sub, result, max) + checkNode(root->right, sub, result, max) + root->val);
+
+    *result = fmax(*result, (*sub)*(*max-*sub));
+    
+    return *sub; //returns the value of the sum of the node and its children
+}
+
+
+
+int maxProduct(struct TreeNode* root){
+    int max; //holds the max product of two nodes
+    long int result = 0, sub = 0;
+    max = checkNode(root, &sub, &result, &max); //runs through the tree once to get the max sum of all nodes
+    result = 0; sub = 0; //resets the values
+    checkNode(root, &sub, &result, &max); //runs through again to find the best sub tree
+
+    
+
+    return (result)%(1000000007);
+}
