@@ -1,0 +1,7 @@
+int climbStairs(int n){
+    int p = 1, last = 0, prev = 0; //prev acts as a temp to hold the prev value of p (permutations)
+
+    for(int i=0; i<n; i++){prev = p; p += last; last = prev;} //the fibbonacci sequence
+
+    return p;
+}
