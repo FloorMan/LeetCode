@@ -1,0 +1,41 @@
+class Solution {
+    public static boolean isPalindrome(String s) {
+		
+		if(s.length() == 0)
+			return true;
+		
+        int leftPointer=0, rightPointer = s.length()-1;
+		System.out.println("leftPointer = " + leftPointer + "\trightPointer = " + rightPointer);
+		
+		
+        char head, tail;
+        while (leftPointer < rightPointer)
+        {
+            head = s.charAt(leftPointer);
+            tail = s.charAt(rightPointer);
+			System.out.println("leftPointer = " + leftPointer + "\trightPointer = " + rightPointer);
+
+            if (!Character.isLetterOrDigit(head))
+                leftPointer++;
+            else if(!Character.isLetterOrDigit(tail))
+                rightPointer--;
+            else 
+            {
+                head = Character.toLowerCase(head);
+                tail = Character.toLowerCase(tail);	
+                if(!(head == tail))
+                    return false;
+				leftPointer++; 
+				rightPointer--;
+            }
+        }
+        return true;
+    }
+	
+	public static void main(String [] args)
+	{
+		boolean result = isPalindrome(args[0]);
+		System.out.println("Is " + args[0] + " a palindrome?: " + result);
+	}
+	
+}
