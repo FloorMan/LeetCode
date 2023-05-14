@@ -1,0 +1,31 @@
+import java.util.*;
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+
+        HashMap<String, List<String>> sortedAnagrams = new HashMap<>();
+
+        for (int i = 0; i < strs.length; i++)
+        {
+            char sortedChars[] = strs[i].toCharArray();
+            Arrays.sort(sortedChars);
+            String sortedString = new String(sortedChars);
+
+            if (sortedAnagrams.containsKey(sortedString))
+                sortedAnagrams.get(sortedString).add(strs[i]);
+            else
+            {
+                List<String> newList = new ArrayList<>();
+                newList.add(strs[i]);
+                sortedAnagrams.put(sortedString, newList);
+            }
+        }
+
+
+        return new ArrayList<>(sortedAnagrams.values());
+
+
+
+
+    }
+}
