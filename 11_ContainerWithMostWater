@@ -1,0 +1,21 @@
+class Solution {
+    public int maxArea(int[] height) {
+        
+
+        int mostWater = 0;
+        int leftPtr = 0, rightPtr = height.length - 1;
+
+        while (leftPtr < rightPtr)
+        {
+            mostWater = Math.max(mostWater, Math.min(height[leftPtr], height[rightPtr]) * (rightPtr - leftPtr));
+
+            if (height[leftPtr] > height[rightPtr])
+                rightPtr--;
+            else
+                leftPtr++;
+        
+        }
+
+        return mostWater;
+    }
+}
