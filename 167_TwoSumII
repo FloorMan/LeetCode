@@ -1,0 +1,25 @@
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        
+        int [] ans = new int[2];
+
+        int leftPtr = 0, rightPtr = numbers.length - 1;
+
+        int sum = numbers[leftPtr] + numbers[rightPtr];
+
+        while (sum != target)
+        {
+            if (sum > target)
+                rightPtr--;
+            else if (sum < target)
+                leftPtr++;
+
+            sum = numbers[leftPtr] + numbers[rightPtr];
+        }
+        
+        ans[0] = leftPtr + 1;
+        ans[1] = rightPtr + 1;
+
+        return ans;
+    }
+}
