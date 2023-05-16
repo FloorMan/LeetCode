@@ -1,0 +1,33 @@
+class Solution {
+    public int trap(int[] height) {
+        
+
+        int [] waterLeft = new int[height.length];
+        int [] waterRight = new int[height.length];
+        int waterHeld = 0;
+
+        // Here we find the maximum height of the bars from the left -> right
+        int maxHeight = 0;
+        for (int heightIndex = 0; heightIndex < height.length; heightIndex++)
+        {
+            maxHeight = Math.max(maxHeight, height[heightIndex]);
+            waterLeft[heightIndex] = maxHeight;
+        }
+
+        // Max height of bars from left <- right
+        maxHeight = 0;
+        for (int heightIndex = height.length - 1; heightIndex >= 0; heightIndex--)
+        {
+            maxHeight = Math.max(maxHeight, height[heightIndex]);
+            waterRight[heightIndex] = maxHeight;
+        }
+
+        // We find the intersection of the max heights to find the area of water held
+        for (int i = 0; i < height.length; i++)
+        {
+            waterHeld += Math.min(waterLeft[i], waterRight[i]) - height[i];
+        }
+
+        return waterHeld;
+    }
+}
