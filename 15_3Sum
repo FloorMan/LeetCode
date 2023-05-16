@@ -1,0 +1,43 @@
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        
+        
+
+        Arrays.sort(nums);
+        Set<List<Integer>> ans = new HashSet<>();
+
+
+        // We go for a sliding window approach with a fixed number
+        
+        int sum = 0, slideSum = 0;
+
+        for (int i = 0; i < nums.length - 2; i++)
+        {
+            int slide = i, leftPtr = i + 1, rightPtr = nums.length - 1;
+
+            slideSum = nums[leftPtr] + nums[rightPtr];
+
+            while (leftPtr < rightPtr)
+            {
+                if (slideSum >  0 - nums[slide])
+                    rightPtr--;
+                else if (slideSum < 0 - nums[slide])
+                    leftPtr++;
+                else
+                {
+                    List<Integer> listy = new ArrayList();
+                    listy.add(nums[slide]);
+                    listy.add(nums[leftPtr]);
+                    listy.add(nums[rightPtr]);
+                    ans.add(listy);
+                    leftPtr++;
+                    rightPtr--;
+                }
+                slideSum = nums[leftPtr] + nums[rightPtr];
+            }
+        }
+
+        return new ArrayList<List<Integer>>(ans);
+
+    }
+}
